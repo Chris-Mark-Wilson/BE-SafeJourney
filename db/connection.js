@@ -9,3 +9,4 @@ module.exports = new MongoClient(process.env.DATABASE_URI, {
     deprecationErrors: true,
   }
 })
+

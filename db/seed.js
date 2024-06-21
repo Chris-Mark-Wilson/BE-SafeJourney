@@ -1,5 +1,6 @@
 const db = require('./connection')
 
+
 exports.seed = async (data) => {
   let client
   try {
@@ -17,7 +18,11 @@ exports.seed = async (data) => {
 
     await database.collection("users").insertMany(data)
 
-  } finally {
+  } catch(err){
+    console.log('error'.err);
+
+  }finally {
     await client.close()
   }
 }
+
