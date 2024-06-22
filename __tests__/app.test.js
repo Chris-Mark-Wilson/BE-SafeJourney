@@ -89,7 +89,7 @@ describe("PATCH api/users/:user_id/friends", ()=>{
 
 describe("PATCH /api/users/:user_id/location", () => {
     test("201 should update the status", async ()=>{
-        const update = {status: true}
+        const update = {status: true, start: {lat:1, long:1}, end: {lat:2, long:2}}
 
         const { body: { acknowledged } } = await request(app)
             .patch('/api/users/6/location')
