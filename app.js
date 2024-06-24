@@ -19,7 +19,7 @@ app.use(handleCustomErrors)
 
 app.use((err, req, res, next) => {
     console.log(err)
-    res.status(500).send({msg: "Internal Backend error",status:500})
+    res.status(500).send({msg: "Internal Backend error",status:500,error:err})
 })
 
 module.exports = app
