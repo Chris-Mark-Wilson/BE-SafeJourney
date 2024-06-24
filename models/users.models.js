@@ -36,8 +36,10 @@ exports.insertUser = async (user) =>  {
 
     if(acknowledged){
         const newUser = await this.selectUserById(user.user_id)
+        await client.close()
         return newUser
     } else {
+        await client.close()
         return Promise.reject({})
     }
 }
@@ -47,6 +49,7 @@ exports.getUserByPhoneNumber = async (phoneNumber) => {
     const database = client.db()
     const user = await database.collection('users').findOne({ phoneNumber })
     if(!user){
+        await client.close()
         return Promise.reject({ status: 404, msg: 'Invalid phone number' })
     }
     await client.close()
@@ -92,6 +95,7 @@ exports.updateLocation = async (status, start, end, user_id) => {
              end: end  
              }   
         } else {
+            await client.close()
             return Promise.reject({status: 400, msg: 'Bad request'})
         }
     }
@@ -101,7 +105,7 @@ exports.updateLocation = async (status, start, end, user_id) => {
     await client.close()
     return acknowledged
 }
-
+// this intermitently returns a 500 server error why?
 exports.fetchFriendList = async (id) =>{
     const { friendList } = await this.selectUserById(id)
 
