@@ -107,6 +107,7 @@ exports.updateLocation = async (status, start, end, user_id) => {
 }
 // this intermitently returns a 500 server error why?
 exports.fetchFriendList = async (id) =>{
+    try{
     const { friendList } = await this.selectUserById(id)
 
     const client = await db.connect()
@@ -124,6 +125,10 @@ exports.fetchFriendList = async (id) =>{
     
     await client.close()
     return data
+    }
+    catch(err){
+        return Promise.reject(err)
+    }
 }
 
 exports.updateCurrentLocation = async (user_id, current) => {
